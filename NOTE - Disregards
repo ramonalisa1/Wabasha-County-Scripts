@@ -1,0 +1,44 @@
+'GATHERING STATS----------------------------------------------------------------------------------------------------
+name_of_script = "NOTE - Disregards"
+start_time = timer
+'
+''LOADING ROUTINE FUNCTIONS
+Set run_another_script_fso = CreateObject("Scripting.FileSystemObject")
+Set fso_command = run_another_script_fso.OpenTextFile("Z:\Scripts\BlueZone Script Directory\Script Files\FUNCTIONS FILE.vbs")
+text_from_the_other_script = fso_command.ReadAll
+fso_command.Close
+Execute text_from_the_other_script
+
+'Check for MAXIS
+MAXIS_check_function
+
+'Will find the MAXIS case number, if there is one.
+call MAXIS case_number_finder(case_number)
+
+'Dialog-------------------------------------
+BeginDialog disregard_dialog, 0, 0, 236, 175, "Disregard Dialog"
+  ButtonGroup ButtonPressed
+    OkButton 90, 155, 50, 15
+    CancelButton 145, 155, 50, 15
+  Text 5, 5, 70, 10, "Enter Case Number"
+  EditBox 80, 5, 45, 10, case_number_editbox
+  Text 5, 20, 230, 10, "What kind of disregard(s) does the client have? (Check all that apply):"
+  CheckBox 10, 35, 145, 10, "Blind/Disabled Student/Child", blind_disabled_check
+  CheckBox 10, 50, 45, 10, "Child Care", child_care_check
+  CheckBox 10, 65, 30, 10, "COLA", cola_check
+  CheckBox 10, 80, 75, 10, "Disabled Adult Child", disabled_adult_child_check
+  CheckBox 10, 95, 35, 10, "PASS", pass_check
+  CheckBox 10, 105, 115, 15, "Widow and Widower's Disregard", widow_disregard_check
+  Text 45, 130, 70, 10, "Sign your case note:"
+  EditBox 115, 125, 95, 15, worker_signature_editbox
+EndDialog
+
+'Connect to MAXIS
+EMConnect ""
+
+'Navigates to CASE/NOTE for the case number entered
+call navigate_to_screen("CASE", "NOTE")
+
+'Transmits to the next screen
+transmit
+
