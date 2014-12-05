@@ -76,7 +76,7 @@ If date_to_accounting <> "" then call write_editbox_in_case_note("Date Sent to A
 If docs_reqd <> "" then call write_editbox_in_case_note("Docs received", docs_reqd, 6)
 If other_notes <> "" then call write_editbox_in_case_note("Other notes", other_notes, 6)
 If worker_action <> "" then call write_editbox_in_case_note("Worker action:", worker_action, 6)
-call write_editbox_in_case_note("Please note:", "DO NOT SCAN!!  Accounting will scan into OnBase when processed.", 6)
+call write_editbox_in_case_note("Please note","DO NOT SCAN!!  Accounting will scan into OnBase when processed.", 6)
 call write_new_line_in_case_note("---")
 call write_new_line_in_case_note(worker_signature)
 
